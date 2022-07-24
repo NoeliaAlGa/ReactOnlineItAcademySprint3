@@ -82,6 +82,8 @@ function buy(id) {
             found = true;
         }
     }
+
+    
     /*cartList.push(products[id -1]);
     */
     // 2. Add found product to the cartList array
@@ -95,6 +97,10 @@ function cleanCart() {
 // Exercise 3
 function calculateTotal() {
     // Calculate total price of the cart using the "cartList" array
+    let sumProductsCard = 0;
+    for(let i = 0; i < cartList.length; i++) {
+        sumProductsCard +=  cartList[i].price;
+    }
 }
 
 // Exercise 4
