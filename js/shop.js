@@ -107,7 +107,6 @@ function calculateTotal() {
 function generateCart(arrayCartList) {
     // Using the "cartlist" array that contains all the items in the shopping cart, 
     // generate the "cart" array that does not contain repeated items, instead each item of this array "cart" shows the quantity of product.
-    let cart = [];
 
     for (let i = 0; i < arrayCartList.length; i++) {
         if(!cart.some((item) => item.id === arrayCartList[i].id)) {
@@ -127,7 +126,12 @@ function generateCart(arrayCartList) {
             }
         }
     }
-    console.log(cart);
+
+    for (let i = 0; i < cart.length; i++) {
+        total += (cart[i].hasOwnProperty("subtotalWithDiscount") === true) 
+            ? cart[i].subtotalWithDiscount : cart[i].subtotal;
+    }
+    
 }
 
 // Exercise 5
@@ -143,6 +147,33 @@ function applyPromotionsCart(cartElement) {
 // Exercise 6
 function printCart() {
     // Fill the shopping cart modal manipulating the shopping cart dom
+    let tableCart = document.getElementById("cart_list");
+    let totalCart = document.getElementById("total_price");
+
+
+    for (let i = 0; i < cart.length; i++) {
+        let tableRow = document.createElement("tr");
+        let tableTh = document.createElement("th");
+        let tableTdPrice = document.createElement("td");
+        let tableTdQuantity = document.createElement("td");
+        let tableTdTotal = document.createElement("td");
+        
+        tableTh.textContent = cart[i].name;
+        tableTdPrice.textContent = cart[i].price;
+        tableTdQuantity.textContent = cart[i].quantity;
+        
+        tableTdTotal.textContent = ((cart[i].hasOwnProperty("subtotalWithDiscount")) 
+            ? cart[i].subtotalWithDiscount : cart[i].subtotal).toFixed(2);
+
+        tableRow.appendChild(tableTh);
+        tableRow.appendChild(tableTdPrice);
+        tableRow.appendChild(tableTdQuantity);
+        tableRow.appendChild(tableTdTotal);
+        tableCart.appendChild(tableRow);
+        
+    }
+
+    totalCart.textContent = total.toFixed(2);
 }
 
 
