@@ -1,11 +1,11 @@
 
-// Exercise 6
+// Exercise 7
 function validate() {
 	var error = 0;
 	// Get the input fields
 	var fName = document.getElementById("fName");
 	var fEmail = document.getElementById("fEmail");
-
+	const fPassword = document.getElementById("fPassword").value;
 	// Get the error elements
 	var errorName = document.getElementById("errorName");
 	var errorEmail = document.getElementById("errorEmail");  
@@ -18,11 +18,13 @@ function validate() {
 	if(fEmail.value == ""){
 		error++;
 	}
-	 
+
 	if(error>0){
 		alert("Error");
 	}else{
 		alert("OK");
 	}
+
+	
 
 }
