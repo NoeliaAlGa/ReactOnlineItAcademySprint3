@@ -92,6 +92,12 @@ function buy(id) {
 // Exercise 2
 function cleanCart() {
     cartList = [];
+
+    let cleanTableCart = document.getElementById("cart_list");
+    let cleanTotalCart = document.getElementById("total_price");
+
+    cleanTableCart.innerHTML = "";
+    cleanTotalCart.innerHTML = 0;
 }
 
 // Exercise 3
