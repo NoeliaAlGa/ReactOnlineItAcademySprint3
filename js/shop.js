@@ -164,10 +164,15 @@ function printCart() {
         let tableTdPrice = document.createElement("td");
         let tableTdQuantity = document.createElement("td");
         let tableTdTotal = document.createElement("td");
+        let removeButton = document.createElement("button");
         
         tableTh.textContent = cart[i].name;
         tableTdPrice.textContent = cart[i].price;
         tableTdQuantity.textContent = cart[i].quantity;
+        removeButton.textContent = "-";
+
+        removeButton.setAttribute("onclick", `removeFromCart(${cart[i].id})`);
+        removeButton.setAttribute("class", `btn bg-primary text-white`);
         
         tableTdTotal.textContent = ((cart[i].hasOwnProperty("subtotalWithDiscount")) 
             ? cart[i].subtotalWithDiscount : cart[i].subtotal).toFixed(2);
@@ -176,8 +181,8 @@ function printCart() {
         tableRow.appendChild(tableTdPrice);
         tableRow.appendChild(tableTdQuantity);
         tableRow.appendChild(tableTdTotal);
+        tableRow.appendChild(removeButton);
         tableCart.appendChild(tableRow);
-        
     }
 
     totalCart.textContent = total.toFixed(2);
@@ -211,8 +216,8 @@ function addToCart(id) {
                 delete cart[indexElement].subtotalWithDiscount;
             }
         }
-
-       for (let i = 0; i < cart.length; i++) {
+        total = 0;
+        for (let i = 0; i < cart.length; i++) {
             total += (cart[i].hasOwnProperty("subtotalWithDiscount") === true) 
                 ? cart[i].subtotalWithDiscount : cart[i].subtotal;
         }
@@ -227,6 +232,22 @@ function addToCart(id) {
 function removeFromCart(id) {
     // 1. Loop for to the array products to get the item to add to cart
     // 2. Add found product to the cartList array
+    const index = cart.findIndex((element) => element.id === id);
+    if (cart[index].quantity > 1) {
+        cart[index].quantity--;
+        cart[index].subtotal -= cart[index].price;
+        cart[index].subtotalWithDiscount = applyPromotionsCart(cart[index]);
+    }
+    else {
+        cart.splice(index, 1);
+    }
+
+    total = 0;
+    for (let i = 0; i < cart.length; i++) {
+        total += (cart[i].hasOwnProperty("subtotalWithDiscount") === true) 
+            ? cart[i].subtotalWithDiscount : cart[i].subtotal;
+    }
+    printCart();
 }
 
 function open_modal(){
