@@ -72,22 +72,22 @@ var cart = [];
 var total = 0;
 
 // Exercise 1
-function buy(id) {
-    // 1. Loop for to the array products to get the item to add to cart
-    let found = false;
+// function buy(id) {
+//     // 1. Loop for to the array products to get the item to add to cart
+//     let found = false;
 
-    for (let i = 0; i < products.length && found === false; i++) {
-        if (i === id - 1) {
-            cartList.push(products[i]);
-            found = true;
-        }
-    }
+//     for (let i = 0; i < products.length && found === false; i++) {
+//         if (products[i].id === id) {
+//             cartList.push(products[i]);
+//             found = true;
+//         }
+//     };
 
     
-    /*cartList.push(products[id -1]);
-    */
-    // 2. Add found product to the cartList array
-}
+//     /*cartList.push(products[id -1]);
+//     */
+//     // 2. Add found product to the cartList array
+// }
 
 // Exercise 2
 function cleanCart() {
@@ -110,7 +110,7 @@ function calculateTotal() {
 }
 
 // Exercise 4
-function generateCart(arrayCartList) {
+/*function generateCart(arrayCartList) {
     // Using the "cartlist" array that contains all the items in the shopping cart, 
     // generate the "cart" array that does not contain repeated items, instead each item of this array "cart" shows the quantity of product.
 
@@ -138,7 +138,7 @@ function generateCart(arrayCartList) {
             ? cart[i].subtotalWithDiscount : cart[i].subtotal;
     }
     
-}
+}*/
 
 // Exercise 5
 function applyPromotionsCart(cartElement) {
@@ -153,6 +153,7 @@ function applyPromotionsCart(cartElement) {
 // Exercise 6
 function printCart() {
     // Fill the shopping cart modal manipulating the shopping cart dom
+    cleanCart();
     let tableCart = document.getElementById("cart_list");
     let totalCart = document.getElementById("total_price");
 
@@ -190,6 +191,36 @@ function addToCart(id) {
     // Refactor previous code in order to simplify it 
     // 1. Loop for to the array products to get the item to add to cart
     // 2. Add found product to the cart array or update its quantity in case it has been added previously.
+    
+    if (products.some((product) => product.id === id)) {
+        const indexProduct = products.findIndex((elementProduct) => elementProduct.id === id);
+
+        if(!cart.some((item) => item.id === products[indexProduct].id)) {
+            cart.push(products[indexProduct]);
+            cart[cart.length - 1].quantity = 1;
+            cart[cart.length - 1].subtotal = cart[cart.length - 1].price;
+        }
+       else {
+            const indexElement = cart.findIndex((elementCart) => elementCart.id === products[indexProduct].id);
+
+            cart[indexElement].quantity += 1;
+            cart[indexElement].subtotal += cart[indexElement].price;
+            cart[indexElement].subtotalWithDiscount = applyPromotionsCart(cart[indexElement]);
+
+            if (cart[indexElement].subtotal === cart[indexElement].subtotalWithDiscount) {
+                delete cart[indexElement].subtotalWithDiscount;
+            }
+        }
+
+       for (let i = 0; i < cart.length; i++) {
+            total += (cart[i].hasOwnProperty("subtotalWithDiscount") === true) 
+                ? cart[i].subtotalWithDiscount : cart[i].subtotal;
+        }
+    }
+    else {
+        alert ("The product with id " + id + " doesn't exist.");
+    }
+    
 }
 
 // Exercise 8
