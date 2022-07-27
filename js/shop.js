@@ -71,6 +71,8 @@ var cart = [];
 
 var total = 0;
 
+let totalItems = 0;
+
 // Exercise 1
 // function buy(id) {
 //     // 1. Loop for to the array products to get the item to add to cart
@@ -90,14 +92,32 @@ var total = 0;
 // }
 
 // Exercise 2
-function cleanCart() {
-    cartList = [];
 
+function updateCOuntProduct() {
+    const countProduct = document.getElementById("count_product");
+    let sumQuantities = 0;
+
+    for(let i = 0; i < cart.length; ++i) {
+        sumQuantities += cart[i].quantity;
+    }
+    countProduct.textContent = sumQuantities;
+}
+
+
+function renderCart() {
     let cleanTableCart = document.getElementById("cart_list");
     let cleanTotalCart = document.getElementById("total_price");
 
     cleanTableCart.innerHTML = "";
     cleanTotalCart.innerHTML = 0;
+
+    updateCOuntProduct();
+}
+
+function cleanCart() {
+    cart = [];
+    total = 0;
+    renderCart();
 }
 
 // Exercise 3
@@ -153,10 +173,9 @@ function applyPromotionsCart(cartElement) {
 // Exercise 6
 function printCart() {
     // Fill the shopping cart modal manipulating the shopping cart dom
-    cleanCart();
+    renderCart();
     let tableCart = document.getElementById("cart_list");
     let totalCart = document.getElementById("total_price");
-
 
     for (let i = 0; i < cart.length; i++) {
         let tableRow = document.createElement("tr");
@@ -196,7 +215,7 @@ function addToCart(id) {
     // Refactor previous code in order to simplify it 
     // 1. Loop for to the array products to get the item to add to cart
     // 2. Add found product to the cart array or update its quantity in case it has been added previously.
-    
+
     if (products.some((product) => product.id === id)) {
         const indexProduct = products.findIndex((elementProduct) => elementProduct.id === id);
 
@@ -221,6 +240,8 @@ function addToCart(id) {
             total += (cart[i].hasOwnProperty("subtotalWithDiscount") === true) 
                 ? cart[i].subtotalWithDiscount : cart[i].subtotal;
         }
+
+        updateCOuntProduct();
     }
     else {
         alert ("The product with id " + id + " doesn't exist.");
@@ -247,10 +268,14 @@ function removeFromCart(id) {
         total += (cart[i].hasOwnProperty("subtotalWithDiscount") === true) 
             ? cart[i].subtotalWithDiscount : cart[i].subtotal;
     }
+
+    updateCOuntProduct();
     printCart();
+
 }
 
 function open_modal(){
 	console.log("Open Modal");
 	printCart();
 }
+
