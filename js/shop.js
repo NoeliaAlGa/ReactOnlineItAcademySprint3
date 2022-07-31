@@ -198,7 +198,7 @@ function printCart() {
   renderCart();
   let tableCart = document.getElementById("cart_list");
   let totalCart = document.getElementById("total_price");
-
+    console.log(cart);
   for (let i = 0; i < cart.length; i++) {
     let tableRow = document.createElement("tr");
     let tableTh = document.createElement("th");
@@ -219,7 +219,7 @@ function printCart() {
       cart[i].hasOwnProperty("subtotalWithDiscount")
         ? cart[i].subtotalWithDiscount
         : cart[i].subtotal
-    ).toFixed(2);
+    )?.toFixed(2);
 
     tableRow.appendChild(tableTh);
     tableRow.appendChild(tableTdPrice);
@@ -273,30 +273,31 @@ function addToCart(id) {
      }
 }
 
-// // Exercise 8
-// function removeFromCart(id) {
-//   // 1. Loop for to the array products to get the item to add to cart
-//   // 2. Add found product to the cartList array
-//   const index = cart.findIndex((element) => element.id === id);
-//   if (cart[index].quantity > 1) {
-//     cart[index].quantity--;
-//     cart[index].subtotal -= cart[index].price;
-//     cart[index].subtotalWithDiscount = applyPromotionsCart(cart[index]);
-//   }
-//   else {
-//     cart.splice(index, 1);
-//   }
+// Exercise 8
+function removeFromCart(id) {
+  // 1. Loop for to the array products to get the item to add to cart
+  // 2. Add found product to the cartList array
+  const index = cart.findIndex((element) => element.id === id);
+  if (cart[index].quantity > 1) {
+    cart[index].quantity--;
+    cart[index].subtotal -= cart[index].price;
+  }
+  else {
+    cart.splice(index, 1);
+  }
 
-//   total = 0;
-//   for (let i = 0; i < cart.length; i++) {
-//     total += (cart[i].hasOwnProperty("subtotalWithDiscount") === true)
-//       ? cart[i].subtotalWithDiscount : cart[i].subtotal;
-//   }
+  applyPromotionsCart();
 
-//   updateCOuntProduct();
-//   printCart();
+  total = 0;
+  for (let i = 0; i < cart.length; i++) {
+    total += (cart[i].hasOwnProperty("subtotalWithDiscount") === true)
+      ? cart[i].subtotalWithDiscount : cart[i].subtotal;
+  }
 
-// }
+  updateCOuntProduct();
+  printCart();
+
+}
 
 function open_modal() {
   console.log("Open Modal");
