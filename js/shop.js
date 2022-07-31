@@ -192,7 +192,7 @@ function printCart() {
     removeButton.textContent = "-";
 
     removeButton.setAttribute("onclick", `removeFromCart(${cart[i].id})`);
-    removeButton.setAttribute("class", `btn bg-primary text-white`);
+    removeButton.setAttribute("class", `btn buttonsColor text-white`);
         
     tableTdTotal.textContent = ((cart[i].hasOwnProperty("subtotalWithDiscount")) 
       ? cart[i].subtotalWithDiscount : cart[i].subtotal).toFixed(2);
