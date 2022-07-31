@@ -134,7 +134,7 @@ function calculateTotal() {
 function generateCart() {
     // Using the "cartlist" array that contains all the items in the shopping cart, 
     // generate the "cart" array that does not contain repeated items, instead each item of this array "cart" shows the quantity of product.
-
+    console.log("CartList: ", cartList);
     for (let i = 0; i < cartList.length; i++) {
         if(!cart.some((item) => item.id === cartList[i].id)) {
             cart.push(cartList[i]);
@@ -161,6 +161,7 @@ function generateCart() {
             ? cart[i].subtotalWithDiscount : cart[i].subtotal;
     }
     console.log(cart);
+    cartList= [];
 }
 
 // // Exercise 5
@@ -179,49 +180,49 @@ function applyPromotionsCart() {
   cart = cart.map((cartElement) => {
     if ((cartElement.id === 1 || cartElement.id === 3)  && cartElement.quantity >= cartElement.offer.number) {
         const priceDiscount = cartElement.price - (cartElement.price * cartElement.offer.percent / 100);
-        cartElement.subtotalWithDiscount = (priceDiscount * cartElement.quantity).toFixed(2);
+        cartElement.subtotalWithDiscount = priceDiscount * cartElement.quantity;
     }
     return cartElement;
   })
   
 }
 
-// // Exercise 6
-// function printCart() {
-//   // Fill the shopping cart modal manipulating the shopping cart dom
-//   renderCart();
-//   let tableCart = document.getElementById("cart_list");
-//   let totalCart = document.getElementById("total_price");
+//Exercise 6
+function printCart() {
+  // Fill the shopping cart modal manipulating the shopping cart dom
+  renderCart();
+  let tableCart = document.getElementById("cart_list");
+  let totalCart = document.getElementById("total_price");
 
-//   for (let i = 0; i < cart.length; i++) {
-//     let tableRow = document.createElement("tr");
-//     let tableTh = document.createElement("th");
-//     let tableTdPrice = document.createElement("td");
-//     let tableTdQuantity = document.createElement("td");
-//     let tableTdTotal = document.createElement("td");
-//     let removeButton = document.createElement("button");
+  for (let i = 0; i < cart.length; i++) {
+    let tableRow = document.createElement("tr");
+    let tableTh = document.createElement("th");
+    let tableTdPrice = document.createElement("td");
+    let tableTdQuantity = document.createElement("td");
+    let tableTdTotal = document.createElement("td");
+    let removeButton = document.createElement("button");
         
-//     tableTh.textContent = cart[i].name;
-//     tableTdPrice.textContent = cart[i].price;
-//     tableTdQuantity.textContent = cart[i].quantity;
-//     removeButton.textContent = "-";
+    tableTh.textContent = cart[i].name;
+    tableTdPrice.textContent = cart[i].price;
+    tableTdQuantity.textContent = cart[i].quantity;
+    removeButton.textContent = "-";
 
-//     removeButton.setAttribute("onclick", `removeFromCart(${cart[i].id})`);
-//     removeButton.setAttribute("class", `btn buttonsColor text-white`);
+    removeButton.setAttribute("onclick", `removeFromCart(${cart[i].id})`);
+    removeButton.setAttribute("class", `btn buttonsColor text-white`);
         
-//     tableTdTotal.textContent = ((cart[i].hasOwnProperty("subtotalWithDiscount")) 
-//       ? cart[i].subtotalWithDiscount : cart[i].subtotal).toFixed(2);
+    tableTdTotal.textContent = (((cart[i].hasOwnProperty("subtotalWithDiscount")) 
+      ? cart[i].subtotalWithDiscount : cart[i].subtotal)).toFixed(2);
 
-//     tableRow.appendChild(tableTh);
-//     tableRow.appendChild(tableTdPrice);
-//     tableRow.appendChild(tableTdQuantity);
-//     tableRow.appendChild(tableTdTotal);
-//     tableRow.appendChild(removeButton);
-//     tableCart.appendChild(tableRow);
-//   }
-
-//   totalCart.textContent = total.toFixed(2);
-// }
+    tableRow.appendChild(tableTh);
+    tableRow.appendChild(tableTdPrice);
+    tableRow.appendChild(tableTdQuantity);
+    tableRow.appendChild(tableTdTotal);
+    tableRow.appendChild(removeButton);
+    tableCart.appendChild(tableRow);
+  }
+  console.log(total);
+  totalCart.textContent = total.toFixed(2);
+}
 
 
 // // ** Nivell II **
