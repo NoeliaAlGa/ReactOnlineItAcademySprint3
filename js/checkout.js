@@ -1,14 +1,14 @@
 
 // Exercise 7
 function validate() {
-	var error = 0;
+	let error = 0;
 	// Get the input fields
-	var fName = document.getElementById("fName");
-	var fEmail = document.getElementById("fEmail");
-	const fPassword = document.getElementById("fPassword").value;
+	const fName = document.getElementById("fName");
+	const fEmail = document.getElementById("fEmail");
+	
 	// Get the error elements
-	var errorName = document.getElementById("errorName");
-	var errorEmail = document.getElementById("errorEmail");  
+	//const errorName = document.getElementById("errorName");
+	//const errorEmail = document.getElementById("errorEmail");  
 	
 	// Validate fields entered by the user: name, phone, password, and email
 	if(fName.value == ""){
@@ -19,12 +19,6 @@ function validate() {
 		error++;
 	}
 
-	if(error>0){
-		alert("Error");
-	}else{
-		alert("OK");
-	}
-
-	
-
+	const msg = (error>0) ? "Error" : "OK";
+	alert(msg);
 }

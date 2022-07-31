@@ -67,11 +67,11 @@ button {
 }
 
 .buttonsColor {
-    background-color: #fc8f13;
+    background-color: #fc8f13 !important;
 }
 
 .buttonsColor:hover {
-    background-color: #66BFBF;
+    background-color: #66BFBF !important;
 }
 
 .divTitle {

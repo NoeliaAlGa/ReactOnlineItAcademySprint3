@@ -14,7 +14,7 @@
 		<link rel="stylesheet" href="./css/style2.css" type="text/css">
 		<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css"
     integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
-        <!-- Core theme CSS (includes Bootstrap)-->
+		<!-- Core theme CSS (includes Bootstrap)-->
     </head>
     <body data-bs-spy="scroll" data-bs-target="#navbar-example2" data-bs-offset="50">
         <!-- Navigation-->
@@ -49,7 +49,7 @@
 						</li>
 
 					 </ul>
-					 <!--<button onclick="generateCart(cartList)" class="btn btn-outline-dark me-2"> Generate Cart</button>-->
+					 <button onclick="generateCart(cartList)" class="btn btn-outline-dark me-2"> Generate Cart</button>
 				 </div>
 			 </div>
 		 </nav>
@@ -82,7 +82,7 @@
 								</div>
 							</div>
 							<div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
-								<div class="text-center"><button type="button" onclick="addToCart(1)" class="btn buttonsColor">Add to cart</button></div>
+								<div class="text-center"><button type="button" onclick="buy(1)" class="btn buttonsColor">Add to cart</button></div>
 							</div>
 						</div>
 					</div>
@@ -96,7 +96,7 @@
 								</div>
 							</div>
 							<div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
-								<div class="text-center"><button type="button" onclick="addToCart(2)" class="btn buttonsColor">Add to cart</button></div>
+								<div class="text-center"><button type="button" onclick="buy(2)" class="btn buttonsColor">Add to cart</button></div>
 							</div>
 						</div>
 					</div>
@@ -110,7 +110,7 @@
 								</div>
 							</div>
 							<div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
-								<div class="text-center"><button type="button" onclick="addToCart(3)" class="btn buttonsColor">Add to cart</button></div>
+								<div class="text-center"><button type="button" onclick="buy(3)" class="btn buttonsColor">Add to cart</button></div>
 							</div>
 						</div>
 					</div>
@@ -135,7 +135,7 @@
 								</div>
 							</div>
 							<div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
-								<div class="text-center"><button type="button" onclick="addToCart(4)" class="btn buttonsColor">Add to cart</button></div>
+								<div class="text-center"><button type="button" onclick="buy(4)" class="btn buttonsColor">Add to cart</button></div>
 							</div>
 						</div>
 					</div>
@@ -149,7 +149,7 @@
 								</div>
 							</div>
 							<div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
-								<div class="text-center"><button type="button" onclick="addToCart(5)" class="btn buttonsColor">Add to cart</button></div>
+								<div class="text-center"><button type="button" onclick="buy(5)" class="btn buttonsColor">Add to cart</button></div>
 							</div>
 						</div>
 					</div>
@@ -163,7 +163,7 @@
 								</div>
 							</div>
 							<div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
-								<div class="text-center"><button type="button" onclick="addToCart(6)" class="btn buttonsColor">Add to cart</button></div>
+								<div class="text-center"><button type="button" onclick="buy(6)" class="btn buttonsColor">Add to cart</button></div>
 							</div>
 						</div>
 					</div>
@@ -188,7 +188,7 @@
 								</div>
 							</div>
 							<div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
-								<div class="text-center"><button type="button" onclick="addToCart(7)" class="btn buttonsColor">Add to cart</button></div>
+								<div class="text-center"><button type="button" onclick="buy(7)" class="btn buttonsColor">Add to cart</button></div>
 							</div>
 						</div>
 					</div>
@@ -202,7 +202,7 @@
 								</div>
 							</div>
 							<div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
-								<div class="text-center"><button type="button" onclick="addToCart(8)" class="btn buttonsColor">Add to cart</button></div>
+								<div class="text-center"><button type="button" onclick="buy(8)" class="btn buttonsColor">Add to cart</button></div>
 							</div>
 						</div>
 					</div>
@@ -216,7 +216,7 @@
 								</div>
 							</div>
 							<div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
-								<div class="text-center"><button type="button" onclick="addToCart(9)" class="btn buttonsColor">Add to cart</button></div>
+								<div class="text-center"><button type="button" onclick="buy(9)" class="btn buttonsColor">Add to cart</button></div>
 							</div>
 						</div>
 					</div>
@@ -233,12 +233,12 @@
 		<div class="modal fade" id="cartModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
 		  <div class="modal-dialog">
 			<div class="modal-content">
-			  <div class="modal-header">
-				<h5 class="modal-title" id="exampleModalLabel"><i class="fas fa-cart-arrow-down"></i> My Cart</h5>
+			  <div class="modal-header colorFooter">
+				<h5 class="modal-title " id="exampleModalLabel"><i class="fas fa-cart-arrow-down"></i> My Cart</h5>
 				<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 			  </div>
 			  <div class="modal-body">
-				  <h3 class="text-center bill px-5">Shopping Cart</h3>
+				  <h3 class="text-center bill px-5"><b>Shopping Cart</b></h3>
 				  <table class="table">
 					<thead>
 						<tr>
@@ -273,8 +273,8 @@
 					Total: $<span id="total_price"></span>
 				  </div>
 				  <div class="text-center"> 
-					<a href="checkout.html" class="btn btn-primary m-3">Checkout</a>
-					<a href="javascript:void(0)" onclick="cleanCart()" class="btn btn-primary m-3">Clean Cart</a>
+					<a href="checkout.html" class="btn buttonsColor m-3">Checkout</a>
+					<a href="javascript:void(0)" onclick="cleanCart()" class="btn buttonsColor m-3">Clean Cart</a>
 				  </div>
 			  </div>
 			</div>
@@ -285,6 +285,7 @@
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
 
         <!-- Core theme JS-->
+		<script src="./js/products.js"></script>
         <script src="js/shop.js"></script>
 		<script src="js/checkout.js"></script>
     </body>
