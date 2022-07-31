@@ -75,22 +75,22 @@ let total = 0;
 let totalItems = 0;
 
 // Exercise 1
-// function buy(id) {
-//     // 1. Loop for to the array products to get the item to add to cart
-//     let found = false;
+function buy(id) {
+    // 1. Loop for to the array products to get the item to add to cart
+    let found = false;
 
-//     for (let i = 0; i < products.length && found === false; i++) {
-//         if (products[i].id === id) {
-//             cartList.push(products[i]);
-//             found = true;
-//         }
-//     };
+    for (let i = 0; i < products.length && found === false; i++) {
+        if (products[i].id === id) {
+            cartList.push(products[i]);
+            found = true;
+        }
+    };
 
     
-//     /*cartList.push(products[id -1]);
-//     */
-//     // 2. Add found product to the cartList array
-// }
+    /*cartList.push(products[id -1]);
+    */
+    // 2. Add found product to the cartList array
+}
 
 // Exercise 2
 
@@ -131,149 +131,163 @@ function calculateTotal() {
 }
 
 // Exercise 4
-/*function generateCart(arrayCartList) {
+function generateCart() {
     // Using the "cartlist" array that contains all the items in the shopping cart, 
     // generate the "cart" array that does not contain repeated items, instead each item of this array "cart" shows the quantity of product.
 
-    for (let i = 0; i < arrayCartList.length; i++) {
-        if(!cart.some((item) => item.id === arrayCartList[i].id)) {
-            cart.push(arrayCartList[i]);
+    for (let i = 0; i < cartList.length; i++) {
+        if(!cart.some((item) => item.id === cartList[i].id)) {
+            cart.push(cartList[i]);
             cart[cart.length - 1].quantity = 1;
             cart[cart.length - 1].subtotal = cart[cart.length - 1].price;
         }
         else {
-            let indexElement = cart.findIndex((elementCart) => elementCart.id === arrayCartList[i].id);
+            let indexElement = cart.findIndex((elementCart) => elementCart.id === cartList[i].id);
             
             cart[indexElement].quantity += 1;
             cart[indexElement].subtotal += cart[indexElement].price;
-            cart[indexElement].subtotalWithDiscount = applyPromotionsCart(cart[indexElement]);
+            //cart[indexElement].subtotalWithDiscount = applyPromotionsCart(cart[indexElement]);
 
-            if (cart[indexElement].subtotal === cart[indexElement].subtotalWithDiscount) {
-                delete cart[indexElement].subtotalWithDiscount;
-            }
+            // if (cart[indexElement].subtotal === cart[indexElement].subtotalWithDiscount) {
+            //     delete cart[indexElement].subtotalWithDiscount;
+            // }
         }
     }
+     
+    applyPromotionsCart();
 
     for (let i = 0; i < cart.length; i++) {
         total += (cart[i].hasOwnProperty("subtotalWithDiscount") === true) 
             ? cart[i].subtotalWithDiscount : cart[i].subtotal;
     }
-    
-}*/
+    console.log(cart);
+}
+
+// // Exercise 5
+// function applyPromotionsCart(cartElement) {
+//   // Apply promotions to each item in the array "cart"
+//   let priceDiscount = cartElement.price;
+//   if ((cartElement.id === 1 && cartElement.quantity >= cartElement.offer.number) || (cartElement.id === 3 && cartElement.quantity >= cartElement.offer.number)) {
+//     priceDiscount = cartElement.price - (cartElement.price * cartElement.offer.percent / 100);
+//   }
+//   return priceDiscount * cartElement.quantity;
+// }
 
 // Exercise 5
-function applyPromotionsCart(cartElement) {
+function applyPromotionsCart() {
   // Apply promotions to each item in the array "cart"
-  let priceDiscount = cartElement.price;
-  if ((cartElement.id === 1 && cartElement.quantity >= cartElement.offer.number) || (cartElement.id === 3 && cartElement.quantity >= cartElement.offer.number)) {
-    priceDiscount = cartElement.price - (cartElement.price * cartElement.offer.percent / 100);
-  }
-  return priceDiscount * cartElement.quantity;
+  cart = cart.map((cartElement) => {
+    if ((cartElement.id === 1 || cartElement.id === 3)  && cartElement.quantity >= cartElement.offer.number) {
+        const priceDiscount = cartElement.price - (cartElement.price * cartElement.offer.percent / 100);
+        cartElement.subtotalWithDiscount = (priceDiscount * cartElement.quantity).toFixed(2);
+    }
+    return cartElement;
+  })
+  
 }
 
-// Exercise 6
-function printCart() {
-  // Fill the shopping cart modal manipulating the shopping cart dom
-  renderCart();
-  let tableCart = document.getElementById("cart_list");
-  let totalCart = document.getElementById("total_price");
+// // Exercise 6
+// function printCart() {
+//   // Fill the shopping cart modal manipulating the shopping cart dom
+//   renderCart();
+//   let tableCart = document.getElementById("cart_list");
+//   let totalCart = document.getElementById("total_price");
 
-  for (let i = 0; i < cart.length; i++) {
-    let tableRow = document.createElement("tr");
-    let tableTh = document.createElement("th");
-    let tableTdPrice = document.createElement("td");
-    let tableTdQuantity = document.createElement("td");
-    let tableTdTotal = document.createElement("td");
-    let removeButton = document.createElement("button");
+//   for (let i = 0; i < cart.length; i++) {
+//     let tableRow = document.createElement("tr");
+//     let tableTh = document.createElement("th");
+//     let tableTdPrice = document.createElement("td");
+//     let tableTdQuantity = document.createElement("td");
+//     let tableTdTotal = document.createElement("td");
+//     let removeButton = document.createElement("button");
         
-    tableTh.textContent = cart[i].name;
-    tableTdPrice.textContent = cart[i].price;
-    tableTdQuantity.textContent = cart[i].quantity;
-    removeButton.textContent = "-";
+//     tableTh.textContent = cart[i].name;
+//     tableTdPrice.textContent = cart[i].price;
+//     tableTdQuantity.textContent = cart[i].quantity;
+//     removeButton.textContent = "-";
 
-    removeButton.setAttribute("onclick", `removeFromCart(${cart[i].id})`);
-    removeButton.setAttribute("class", `btn buttonsColor text-white`);
+//     removeButton.setAttribute("onclick", `removeFromCart(${cart[i].id})`);
+//     removeButton.setAttribute("class", `btn buttonsColor text-white`);
         
-    tableTdTotal.textContent = ((cart[i].hasOwnProperty("subtotalWithDiscount")) 
-      ? cart[i].subtotalWithDiscount : cart[i].subtotal).toFixed(2);
+//     tableTdTotal.textContent = ((cart[i].hasOwnProperty("subtotalWithDiscount")) 
+//       ? cart[i].subtotalWithDiscount : cart[i].subtotal).toFixed(2);
 
-    tableRow.appendChild(tableTh);
-    tableRow.appendChild(tableTdPrice);
-    tableRow.appendChild(tableTdQuantity);
-    tableRow.appendChild(tableTdTotal);
-    tableRow.appendChild(removeButton);
-    tableCart.appendChild(tableRow);
-  }
+//     tableRow.appendChild(tableTh);
+//     tableRow.appendChild(tableTdPrice);
+//     tableRow.appendChild(tableTdQuantity);
+//     tableRow.appendChild(tableTdTotal);
+//     tableRow.appendChild(removeButton);
+//     tableCart.appendChild(tableRow);
+//   }
 
-  totalCart.textContent = total.toFixed(2);
-}
+//   totalCart.textContent = total.toFixed(2);
+// }
 
 
-// ** Nivell II **
+// // ** Nivell II **
 
-// Exercise 7
-function addToCart(id) {
-  // Refactor previous code in order to simplify it 
-  // 1. Loop for to the array products to get the item to add to cart
-  // 2. Add found product to the cart array or update its quantity in case it has been added previously.
+// // Exercise 7
+// function addToCart(id) {
+//   // Refactor previous code in order to simplify it 
+//   // 1. Loop for to the array products to get the item to add to cart
+//   // 2. Add found product to the cart array or update its quantity in case it has been added previously.
+//   if (products.some((product) => product.id === id)) {
+//     const indexProduct = products.findIndex((elementProduct) => elementProduct.id === id);
 
-  if (products.some((product) => product.id === id)) {
-    const indexProduct = products.findIndex((elementProduct) => elementProduct.id === id);
+//     if (!cart.some((item) => item.id === products[indexProduct].id)) {
+//       cart.push(products[indexProduct]);
+//       cart[cart.length - 1].quantity = 1;
+//       cart[cart.length - 1].subtotal = cart[cart.length - 1].price;
+//     }
+//     else {
+//       const indexElement = cart.findIndex((elementCart) => elementCart.id === products[indexProduct].id);
 
-    if (!cart.some((item) => item.id === products[indexProduct].id)) {
-      cart.push(products[indexProduct]);
-      cart[cart.length - 1].quantity = 1;
-      cart[cart.length - 1].subtotal = cart[cart.length - 1].price;
-    }
-    else {
-      const indexElement = cart.findIndex((elementCart) => elementCart.id === products[indexProduct].id);
+//       cart[indexElement].quantity += 1;
+//       cart[indexElement].subtotal += cart[indexElement].price;
+//       cart[indexElement].subtotalWithDiscount = applyPromotionsCart(cart[indexElement]);
 
-      cart[indexElement].quantity += 1;
-      cart[indexElement].subtotal += cart[indexElement].price;
-      cart[indexElement].subtotalWithDiscount = applyPromotionsCart(cart[indexElement]);
+//       if (cart[indexElement].subtotal === cart[indexElement].subtotalWithDiscount) {
+//         delete cart[indexElement].subtotalWithDiscount;
+//       }
+//     }
+//     total = 0;
+//     for (let i = 0; i < cart.length; i++) {
+//       total += (cart[i].hasOwnProperty("subtotalWithDiscount") === true) 
+//         ? cart[i].subtotalWithDiscount : cart[i].subtotal;
+//     }
 
-      if (cart[indexElement].subtotal === cart[indexElement].subtotalWithDiscount) {
-        delete cart[indexElement].subtotalWithDiscount;
-      }
-    }
-    total = 0;
-    for (let i = 0; i < cart.length; i++) {
-      total += (cart[i].hasOwnProperty("subtotalWithDiscount") === true) 
-        ? cart[i].subtotalWithDiscount : cart[i].subtotal;
-    }
-
-    updateCOuntProduct();
-  }
-  else {
-    alert ("The product with id " + id + " doesn't exist.");
-  }
+//     updateCOuntProduct();
+//   }
+//   else {
+//     alert ("The product with id " + id + " doesn't exist.");
+//   }
     
-}
+// }
 
-// Exercise 8
-function removeFromCart(id) {
-  // 1. Loop for to the array products to get the item to add to cart
-  // 2. Add found product to the cartList array
-  const index = cart.findIndex((element) => element.id === id);
-  if (cart[index].quantity > 1) {
-    cart[index].quantity--;
-    cart[index].subtotal -= cart[index].price;
-    cart[index].subtotalWithDiscount = applyPromotionsCart(cart[index]);
-  }
-  else {
-    cart.splice(index, 1);
-  }
+// // Exercise 8
+// function removeFromCart(id) {
+//   // 1. Loop for to the array products to get the item to add to cart
+//   // 2. Add found product to the cartList array
+//   const index = cart.findIndex((element) => element.id === id);
+//   if (cart[index].quantity > 1) {
+//     cart[index].quantity--;
+//     cart[index].subtotal -= cart[index].price;
+//     cart[index].subtotalWithDiscount = applyPromotionsCart(cart[index]);
+//   }
+//   else {
+//     cart.splice(index, 1);
+//   }
 
-  total = 0;
-  for (let i = 0; i < cart.length; i++) {
-    total += (cart[i].hasOwnProperty("subtotalWithDiscount") === true) 
-      ? cart[i].subtotalWithDiscount : cart[i].subtotal;
-  }
+//   total = 0;
+//   for (let i = 0; i < cart.length; i++) {
+//     total += (cart[i].hasOwnProperty("subtotalWithDiscount") === true) 
+//       ? cart[i].subtotalWithDiscount : cart[i].subtotal;
+//   }
 
-  updateCOuntProduct();
-  printCart();
+//   updateCOuntProduct();
+//   printCart();
 
-}
+// }
 
 function open_modal(){
   console.log("Open Modal");
